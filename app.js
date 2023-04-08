@@ -3,9 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const _ = require('lodash');
 
-
-
-
 const app = express();
 
 
@@ -16,7 +13,19 @@ app.use(express.static("public"));
 
 app.set('view engine', 'ejs');
 
-mongoose.connect("mongodb://127.0.0.1:27017/todolistDB");
+const uri = "mongodb+srv://niteshjaiswal9292:k5I54ajIlBar3EJj@cluster0.qam1asd.mongodb.net/todolistDB";
+
+mongoose.connect(uri);
+
+// const today = new Date();
+// // console.log(today);
+// const options = {
+//     weekday: "long",
+//     day: "numeric",
+//     month: "long"
+//   };
+
+//  const day = today.toLocaleDateString("en-US", options);
 
 const itemsSchema = new mongoose.Schema({
     name:String
@@ -50,7 +59,8 @@ const List = mongoose.model("List",listSchema);
 
 app.get('/',function(req,res)
 {
-    
+   
+
     Item.find({})
 .then(foundItems =>{
     if(foundItems.length === 0)
